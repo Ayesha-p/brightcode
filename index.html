@@ -3,715 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bright Code Portfolio - Building Custom Software That Helps Businesses Grow</title>
+    <title>Bright Code - Laravel & PHP Web Development</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #0a0a0a;
-            overflow-x: hidden;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.8), 0 0 60px rgba(118, 75, 162, 0.6); }
-        }
-
-        header {
-            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            color: white;
-            padding: 10rem 0 8rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        header h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            animation: fadeInUp 1s ease;
-            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
-            font-weight: 800;
-        }
-
-        header .subheadline {
-            font-size: 1.6rem;
-            opacity: 0.95;
-            position: relative;
-            animation: fadeInUp 1s ease 0.3s backwards;
-            margin-bottom: 3rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-            animation: fadeInUp 1s ease 0.6s backwards;
-        }
-
-        .cta-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.2rem 3rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: all 0.4s;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-            text-decoration: none;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-btn.secondary {
-            background: transparent;
-            border: 2px solid white;
-        }
-
-        .cta-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .cta-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .cta-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.6);
-        }
-
-        .cta-btn span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 50px;
-            border: 2px solid white;
-            border-radius: 20px;
-            animation: float 2s ease-in-out infinite;
-        }
-
-        .scroll-indicator::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        nav {
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-            z-index: 100;
-            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.3s;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        nav a:hover {
-            color: #667eea;
-            transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            padding: 6rem 0;
-            background: rgba(15, 15, 15, 0.8);
-            margin: 3rem 0;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-            transition: left 0.7s;
-        }
-
-        section:hover::before {
-            left: 100%;
-        }
-
-        section h2 {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .about-content {
-            max-width: 900px;
-            margin: 0 auto;
-            animation: fadeInUp 1s ease;
-        }
-
-        .about-content p {
-            color: #e0e0e0;
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.9;
-        }
-
-        .about-highlights {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .highlight-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            padding: 1.5rem;
-            border-radius: 15px;
-            border-left: 4px solid #667eea;
-            color: #b0b0b0;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-        }
-
-        .highlight-card:hover {
-            transform: translateX(10px);
-            border-color: #f093fb;
-        }
-
-        .highlight-card::before {
-            content: '✓';
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            padding: 2rem;
-            border-radius: 15px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            transition: all 0.4s;
-            animation: fadeInUp 0.8s ease;
-            animation-fill-mode: both;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-card:nth-child(1) { animation-delay: 0.1s; }
-        .skill-card:nth-child(2) { animation-delay: 0.2s; }
-        .skill-card:nth-child(3) { animation-delay: 0.3s; }
-        .skill-card:nth-child(4) { animation-delay: 0.4s; }
-
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.1), transparent);
-            transform: scale(0);
-            transition: transform 0.5s;
-        }
-
-        .skill-card:hover::before {
-            transform: scale(1);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #667eea;
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
-        }
-
-        .skill-card h3 {
-            color: #667eea;
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
-            position: relative;
-        }
-
-        .skill-card p {
-            color: #b0b0b0;
-            position: relative;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .project-card {
-            background: rgba(20, 20, 20, 0.9);
-            border: 2px solid rgba(102, 126, 234, 0.2);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s;
-            animation: fadeInUp 0.8s ease;
-            animation-fill-mode: both;
-            cursor: pointer;
-        }
-
-        .project-card:nth-child(1) { animation-delay: 0.1s; }
-        .project-card:nth-child(2) { animation-delay: 0.3s; }
-        .project-card:nth-child(3) { animation-delay: 0.5s; }
-
-        .project-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5);
-            border-color: #667eea;
-        }
-
-        .project-img {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 4rem;
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-img::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
-        }
-
-        .project-card:hover .project-img::before {
-            transform: translateX(100%);
-        }
-
-        .project-card:hover .project-img {
-            transform: scale(1.1);
-        }
-
-        .project-content {
-            padding: 2rem;
-        }
-
-        .project-content h3 {
-            color: #667eea;
-            margin-bottom: 1rem;
-            font-size: 1.7rem;
-        }
-
-        .project-content p {
-            color: #b0b0b0;
-            font-size: 1.05rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-meta {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .project-meta p {
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-meta strong {
-            color: #667eea;
-        }
-
-        .contact-intro {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            color: #e0e0e0;
-            font-size: 1.2rem;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #667eea;
-            font-size: 1.1rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            border-radius: 10px;
-            font-family: inherit;
-            background: rgba(20, 20, 20, 0.5);
-            color: #fff;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-            background: rgba(20, 20, 20, 0.8);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.2rem 3rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.4s;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-info {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-            animation: fadeInUp 1.2s ease;
-        }
-
-        .contact-info h3 {
-            color: #667eea;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact-item {
-            background: rgba(102, 126, 234, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            color: #e0e0e0;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-
-        .contact-item:hover {
-            background: rgba(102, 126, 234, 0.2);
-            transform: translateX(5px);
-        }
-
-        .contact-item strong {
-            color: #667eea;
-            margin-right: 0.5rem;
-        }
-
-        .contact-item a {
-            color: #f093fb;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .contact-item a:hover {
-            color: #667eea;
-        }
-
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            text-align: center;
-            padding: 3rem 0;
-            margin-top: 3rem;
-            border-top: 2px solid rgba(102, 126, 234, 0.3);
-        }
-
-        footer p {
-            font-size: 1.1rem;
-        }
-
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(102, 126, 234, 0.5);
-            border-radius: 50%;
-            animation: particleFloat 15s infinite;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5rem;
-            }
-
-            header .subheadline {
-                font-size: 1.2rem;
-            }
-
-            nav ul {
-                gap: 1.5rem;
-            }
-
-            section h2 {
-                font-size: 2rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#0a0a0a; color:#e0e0e0; line-height:1.6; overflow-x:hidden; }
+        header { background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe); background-size:400% 400%; animation: gradient 15s ease infinite; text-align:center; padding:10rem 0 8rem; color:white; position:relative; overflow:hidden; }
+        @keyframes gradient { 0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;} }
+        header h1 { font-size:4rem; margin-bottom:1rem; animation: fadeInUp 1s ease; font-weight:800; }
+        header .subheadline { font-size:1.5rem; opacity:0.95; animation: fadeInUp 1s ease 0.3s backwards; max-width:800px; margin:0 auto 1rem; line-height:1.8; }
+        .cta-buttons { display:flex; gap:1rem; justify-content:center; margin-top:2rem; }
+        .cta-btn { background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:white; padding:1rem 2.5rem; border-radius:50px; text-decoration:none; font-weight:600; transition:0.4s; display:inline-block; }
+        .cta-btn:hover { transform:scale(1.1); }
+        nav { background:rgba(10,10,10,0.95); backdrop-filter:blur(10px); padding:1rem 0; position:sticky; top:0; z-index:100; }
+        nav ul { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; list-style:none; }
+        nav a { text-decoration:none; color:#fff; font-weight:600; position:relative; padding:0.5rem 0; transition:0.3s; }
+        nav a:hover { color:#667eea; }
+        .container { max-width:1200px; margin:0 auto; padding:2rem; }
+        section { padding:6rem 0; margin:3rem 0; border-radius:20px; backdrop-filter:blur(10px); border:1px solid rgba(102,126,234,0.2); }
+        section h2 { text-align:center; font-size:2.5rem; margin-bottom:2rem; background:linear-gradient(135deg,#667eea,#764ba2,#f093fb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .about-highlights, .skills-grid, .projects-grid { display:grid; gap:2rem; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
+        .highlight-card, .skill-card, .project-card { background:rgba(20,20,20,0.8); padding:1.5rem; border-radius:15px; border-left:4px solid #667eea; transition:0.3s; }
+        .highlight-card:hover, .skill-card:hover, .project-card:hover { transform:translateY(-5px); border-color:#f093fb; }
+        .skill-card h3 { color:#667eea; margin-bottom:0.5rem; }
+        .project-card { cursor:pointer; }
+        .project-img { width:100%; height:200px; background:linear-gradient(135deg,#667eea,#764ba2); display:flex; align-items:center; justify-content:center; color:white; font-size:3rem; margin-bottom:1rem; border-radius:10px; }
+        .project-content h3 { color:#667eea; margin-bottom:0.5rem; }
+        .project-content p { color:#b0b0b0; }
+        .contact-form { max-width:600px; margin:0 auto 3rem; }
+        .form-group { margin-bottom:1.5rem; }
+        .form-group input, .form-group textarea { width:100%; padding:1rem; border-radius:10px; border:2px solid rgba(102,126,234,0.3); background:rgba(20,20,20,0.5); color:#fff; font-size:1rem; }
+        .form-group input:focus, .form-group textarea:focus { outline:none; border-color:#667eea; }
+        .btn { background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:1rem 2.5rem; border-radius:50px; cursor:pointer; font-weight:600; transition:0.4s; }
+        .btn:hover { transform:scale(1.1); }
+        footer { background:rgba(0,0,0,0.9); color:white; text-align:center; padding:2rem 0; border-top:2px solid rgba(102,126,234,0.3); }
+        @media(max-width:768px){ header h1{font-size:2.5rem;} header .subheadline{font-size:1.1rem;} }
+        @keyframes fadeInUp { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+        @keyframes gradient {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
-
     <header>
         <h1>Bright Code</h1>
-        <p class="subheadline">Building Custom Software That Helps Businesses Grow</p>
-        <p class="subheadline">We specialize in full-stack web development with PHP & MySQL, creating powerful and scalable web solutions for businesses and startups.</p>
+        <p class="subheadline">Custom Laravel & PHP Web Development for Businesses</p>
+        <p class="subheadline">We build secure, scalable, and maintainable web applications including CRM systems, dashboards, and admin panels.</p>
         <div class="cta-buttons">
-            <a href="#projects" class="cta-btn"><span>View Projects</span></a>
-            <a href="#contact" class="cta-btn secondary"><span>Contact Us</span></a>
+            <a href="#projects" class="cta-btn">View Projects</a>
+            <a href="#contact" class="cta-btn">Contact Us</a>
         </div>
-        <div class="scroll-indicator"></div>
     </header>
 
     <nav>
@@ -726,19 +64,12 @@
     <div class="container">
         <section id="about">
             <h2>About Bright Code</h2>
-            <div class="about-content">
-                <p>Bright Code is a modern software house dedicated to helping businesses and startups bring their ideas to life. We provide tailored full-stack web development solutions specializing in PHP & MySQL.</p>
-                
-                <p>Our mission is simple: deliver high-quality, reliable, and innovative web applications that drives results for our clients.</p>
-                
-                <p>With a focus on clean code, modern technologies, and client satisfaction, Bright Code turns concepts into functional products that grow businesses.</p>
-                
-                <div class="about-highlights">
-                    <div class="highlight-card">Frontend Development (HTML, CSS, JavaScript, React)</div>
-                    <div class="highlight-card">Backend Development (PHP, Laravel Framework)</div>
-                    <div class="highlight-card">Database Management (MySQL, Database Design)</div>
-                    <div class="highlight-card">Full-Stack Solutions (Complete Web Applications)</div>
-                </div>
+            <p>Bright Code is a dedicated web development studio specializing in <strong>PHP & Laravel</strong>. We help businesses transform ideas into robust, scalable, and secure web applications.</p>
+            <div class="about-highlights">
+                <div class="highlight-card">Laravel Backend Development (MVC, RESTful APIs, Authentication)</div>
+                <div class="highlight-card">Database Management (MySQL, Query Optimization, Security)</div>
+                <div class="highlight-card">Custom Web Applications (CRM, Admin Panels, Dashboards)</div>
+                <div class="highlight-card">Full-Stack Solutions (Blade Templates, Frontend Integration)</div>
             </div>
         </section>
 
@@ -746,365 +77,49 @@
             <h2>Our Expertise</h2>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <h3>🎨 Frontend Development</h3>
-                    <p>HTML5, CSS3, JavaScript, React, Responsive Design - Building beautiful, interactive user interfaces</p>
-                </div>
-                <div class="skill-card">
                     <h3>⚙️ Backend Development</h3>
-                    <p>PHP, Laravel Framework, RESTful APIs - Creating robust server-side applications and logic</p>
+                    <p>PHP, Laravel, RESTful APIs, Roles & Permissions, Authentication Systems.</p>
                 </div>
                 <div class="skill-card">
                     <h3>🗄️ Database Management</h3>
-                    <p>MySQL, Database Design, Query Optimization - Designing and managing efficient data structures</p>
+                    <p>MySQL, Database Design, Query Optimization, Security & Data Integrity.</p>
                 </div>
                 <div class="skill-card">
-                    <h3>🚀 Full-Stack Solutions</h3>
-                    <p>Complete Web Applications, MVC Architecture, CRUD Operations - End-to-end development expertise</p>
+                    <h3>🎯 Business Applications</h3>
+                    <p>CRM, Admin Panels, Dashboards, Custom Business Platforms.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🖥️ Frontend Integration</h3>
+                    <p>Blade Templates, HTML, CSS, JavaScript — enhancing user experience.</p>
                 </div>
             </div>
         </section>
 
         <section id="projects">
-            <h2>Our Projects Portfolio</h2>
+            <h2>Laravel Projects</h2>
             <div class="projects-grid">
-                <div class="project-card" onclick="window.open('https://dynamic-emmomerce-agef.vercel.app', '_blank')">
-                    <div class="project-img">🛍️</div>
-                    <div class="project-content">
-                        <h3>Dynamic E-Commerce Platform</h3>
-                        <p>Full-featured e-commerce with dynamic product listings, cart, and checkout.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> Next.js, TypeScript, Tailwind CSS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://shareable-and-downlode-dynamicresumebulder.vercel.app', '_blank')">
-                    <div class="project-img">📄</div>
-                    <div class="project-content">
-                        <h3>Shareable Resume Builder</h3>
-                        <p>Advanced resume builder with shareable links and PDF download functionality.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> TypeScript, Next.js, PDF Generation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://mimiart.vercel.app', '_blank')">
-                    <div class="project-img">🎨</div>
-                    <div class="project-content">
-                        <h3>MimiArt Creative Platform</h3>
-                        <p>Art showcase platform with elegant UI and interactive galleries.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> Next.js, API Routes, React</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://hackathone-re3m.vercel.app', '_blank')">
-                    <div class="project-img">🏆</div>
-                    <div class="project-content">
-                        <h3>Hackathon Project</h3>
-                        <p>Competition submission with innovative solutions and modern UI/UX.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> React, Next.js, Modern CSS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://portfolio-madiha.vercel.app', '_blank')">
-                    <div class="project-img">💼</div>
-                    <div class="project-content">
-                        <h3>Portfolio Website - Madiha</h3>
-                        <p>Stunning portfolio with modern design and smooth animations.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> React, CSS3, Responsive Design</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://brightcode-three.vercel.app', '_blank')">
+                <div class="project-card" onclick="window.open('#', '_blank')">
                     <div class="project-img">⚡</div>
                     <div class="project-content">
-                        <h3>Bright Code Website</h3>
-                        <p>Company website showcasing services and portfolio.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> Next.js, Tailwind CSS</p>
-                        </div>
+                        <h3>Business Management System</h3>
+                        <p>Custom Laravel application with roles, authentication, reporting, and dashboards.</p>
+                        <p><strong>Tech:</strong> Laravel, PHP, MySQL, Blade</p>
                     </div>
                 </div>
-                <div class="project-card" onclick="window.open('https://dynamicresumebulder.vercel.app', '_blank')">
-                    <div class="project-img">📋</div>
+                <div class="project-card" onclick="window.open('#', '_blank')">
+                    <div class="project-img">🛠️</div>
                     <div class="project-content">
-                        <h3>Dynamic Resume Builder</h3>
-                        <p>Interactive resume builder with real-time preview.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> TypeScript, HTML/CSS, JavaScript</p>
-                        </div>
+                        <h3>CRM Dashboard</h3>
+                        <p>Laravel-based CRM solution with customer management and reporting.</p>
+                        <p><strong>Tech:</strong> Laravel, PHP, MySQL</p>
                     </div>
                 </div>
-                <div class="project-card" onclick="window.open('https://ecommerce-ayesha.vercel.app', '_blank')">
-                    <div class="project-img">🛒</div>
+                <div class="project-card" onclick="window.open('#', '_blank')">
+                    <div class="project-img">📊</div>
                     <div class="project-content">
-                        <h3>E-Commerce Store</h3>
-                        <p>Complete online store with product catalog and checkout.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> React, Commerce.js, Stripe</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://multiple-pages-website-tailwind-css.vercel.app', '_blank')">
-                    <div class="project-img">🌐</div>
-                    <div class="project-content">
-                        <h3>Multi-Page Business Site</h3>
-                        <p>Professional corporate website with modern design patterns.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> Next.js, Tailwind CSS, TypeScript</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://ayesha-figma-website.vercel.app', '_blank')">
-                    <div class="project-img">🎯</div>
-                    <div class="project-content">
-                        <h3>Figma Design Implementation</h3>
-                        <p>Pixel-perfect design-to-code conversion from Figma.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, CSS, JavaScript, Figma</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://my-portfolio-tailwind-css-nine.vercel.app', '_blank')">
-                    <div class="project-img">✨</div>
-                    <div class="project-content">
-                        <h3>Tailwind CSS Portfolio</h3>
-                        <p>Modern portfolio showcasing Tailwind CSS utility-first approach.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> Tailwind CSS, React, Next.js</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://my-portfolio-css-two.vercel.app', '_blank')">
-                    <div class="project-img">💻</div>
-                    <div class="project-content">
-                        <h3>CSS Portfolio</h3>
-                        <p>Portfolio website with custom CSS styling and animations.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, CSS3, JavaScript</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://portfolios-eight-gamma.vercel.app', '_blank')">
-                    <div class="project-img">🎨</div>
-                    <div class="project-content">
-                        <h3>Portfolio Showcase</h3>
-                        <p>Creative portfolio with interactive elements and transitions.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> React, CSS3, Modern JS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://editabledynamicresumebulder.vercel.app', '_blank')">
-                    <div class="project-img">✏️</div>
-                    <div class="project-content">
-                        <h3>Editable Resume Builder</h3>
-                        <p>Resume builder with inline editing capabilities.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> TypeScript, React, CSS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://dynamicresumebulderss.vercel.app', '_blank')">
-                    <div class="project-img">📝</div>
-                    <div class="project-content">
-                        <h3>Resume Builder Pro</h3>
-                        <p>Professional resume creation tool with templates.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> TypeScript, Next.js</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://syedamultiple-page-website-tailwin-css.vercel.app', '_blank')">
-                    <div class="project-img">🏢</div>
-                    <div class="project-content">
-                        <h3>Business Website</h3>
-                        <p>Multi-page business website with Tailwind CSS.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, Tailwind CSS, JavaScript</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://figmawebsite-liard.vercel.app', '_blank')">
-                    <div class="project-img">🖼️</div>
-                    <div class="project-content">
-                        <h3>Figma Website</h3>
-                        <p>Website built from Figma design specifications.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, CSS, JavaScript</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://figma-hmgl.vercel.app', '_blank')">
-                    <div class="project-img">🎨</div>
-                    <div class="project-content">
-                        <h3>Figma Design Project</h3>
-                        <p>Creative design implementation from Figma mockups.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, CSS3, Figma</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://multiple-page-website-csss-amg6.vercel.app', '_blank')">
-                    <div class="project-img">📄</div>
-                    <div class="project-content">
-                        <h3>Multi-Page CSS Site</h3>
-                        <p>Multi-page website with custom CSS styling.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, CSS3, JavaScript</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://multiple-page-website-csss.vercel.app', '_blank')">
-                    <div class="project-img">🌍</div>
-                    <div class="project-content">
-                        <h3>Corporate Website</h3>
-                        <p>Professional multi-page corporate site.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, CSS, JavaScript</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://editabledddddynamicresume.vercel.app', '_blank')">
-                    <div class="project-img">📄</div>
-                    <div class="project-content">
-                        <h3>Dynamic Resume Editor</h3>
-                        <p>Resume editor with dynamic content updates.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> TypeScript, React</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://shareable-and-downlode-dynamicresumebulders.vercel.app', '_blank')">
-                    <div class="project-img">💾</div>
-                    <div class="project-content">
-                        <h3>Resume Builder Advanced</h3>
-                        <p>Advanced resume tool with share and download features.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> TypeScript, PDF.js</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://hackathone-3y3l.vercel.app', '_blank')">
-                    <div class="project-img">🚀</div>
-                    <div class="project-content">
-                        <h3>Hackathon Submission</h3>
-                        <p>Innovative hackathon project with modern tech.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> React, Next.js</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://editabledynamicresumebulders.vercel.app', '_blank')">
-                    <div class="project-img">✍️</div>
-                    <div class="project-content">
-                        <h3>Resume Builder Suite</h3>
-                        <p>Comprehensive resume building solution.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> TypeScript, React</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://hackathone-three.vercel.app', '_blank')">
-                    <div class="project-img">🏅</div>
-                    <div class="project-content">
-                        <h3>Hackathon Project V3</h3>
-                        <p>Competition entry with innovative features.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> React, Modern CSS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://multiple-page-website-css.vercel.app', '_blank')">
-                    <div class="project-img">🏗️</div>
-                    <div class="project-content">
-                        <h3>Multi-Page Website</h3>
-                        <p>Professional website with multiple pages.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, CSS, JavaScript</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://portfolio-qndi.vercel.app', '_blank')">
-                    <div class="project-img">🎯</div>
-                    <div class="project-content">
-                        <h3>Portfolio Design</h3>
-                        <p>Creative portfolio with unique design elements.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> React, CSS3</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://multiple-page-website-tailwin-css.vercel.app', '_blank')">
-                    <div class="project-img">🌟</div>
-                    <div class="project-content">
-                        <h3>Tailwind Business Site</h3>
-                        <p>Business website using Tailwind CSS framework.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> Tailwind CSS, HTML</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://portfolio-mauve-mu-89.vercel.app', '_blank')">
-                    <div class="project-img">💼</div>
-                    <div class="project-content">
-                        <h3>Portfolio Site</h3>
-                        <p>Professional portfolio with project showcase.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> React, CSS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://ecommerce-neon-sigma-76.vercel.app', '_blank')">
-                    <div class="project-img">🛍️</div>
-                    <div class="project-content">
-                        <h3>E-Commerce Site</h3>
-                        <p>Online store with product catalog.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> React, Next.js</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://ayesha-multiple-page-website-css.vercel.app', '_blank')">
-                    <div class="project-img">📱</div>
-                    <div class="project-content">
-                        <h3>Responsive Website</h3>
-                        <p>Multi-page responsive website design.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, CSS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://next-multiple-page-website-tailwin-css.vercel.app', '_blank')">
-                    <div class="project-img">⚡</div>
-                    <div class="project-content">
-                        <h3>Next.js Multi-Page Site</h3>
-                        <p>Multi-page site built with Next.js.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> Next.js, Tailwind CSS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://ayeshastaticresume.vercel.app', '_blank')">
-                    <div class="project-img">📄</div>
-                    <div class="project-content">
-                        <h3>Static Resume</h3>
-                        <p>Professional static resume design.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> HTML, CSS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://my-next-app-chi-six.vercel.app', '_blank')">
-                    <div class="project-img">🔷</div>
-                    <div class="project-content">
-                        <h3>Next.js Application</h3>
-                        <p>Web application built with Next.js framework.</p>
-                        <div class="project-meta">
-                            <p><strong>Tools:</strong> Next.js, React</p>
-                        </div>
+                        <h3>Inventory Management System</h3>
+                        <p>Laravel application managing products, stock levels, and orders.</p>
+                        <p><strong>Tech:</strong> Laravel, PHP, MySQL</p>
                     </div>
                 </div>
             </div>
@@ -1112,10 +127,7 @@
 
         <section id="contact">
             <h2>Let's Build Something Together</h2>
-            <div class="contact-intro">
-                <p>Have a project in mind? Bright Code is ready to help you bring it to life. Get in touch today and let's discuss how we can transform your ideas into reality!</p>
-            </div>
-            
+            <p style="text-align:center; max-width:700px; margin:0 auto 2rem;">Have a Laravel project in mind? Bright Code offers a <strong>free consultation</strong> — we’ll get back to you within 24 hours!</p>
             <form class="contact-form" onsubmit="handleSubmit(event)">
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -1129,80 +141,22 @@
                     <label for="message">Message</label>
                     <textarea id="message" required></textarea>
                 </div>
-                <button type="submit" class="btn"><span>Send Message</span></button>
+                <button type="submit" class="btn">Send Message</button>
             </form>
-
-            <div class="contact-info">
-                <h3>Contact Information</h3>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <strong>Email:</strong> <a href="mailto:brightcodeinc@gmail.com">brightcodeinc@gmail.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <strong>Phone:</strong> +92 XXX XXXXXXX
-                    </div>
-                    <div class="contact-item">
-                        <strong>LinkedIn:</strong> <a href="#" target="_blank">Connect with us on LinkedIn</a>
-                    </div>
-                    <div class="contact-item">
-                        <strong>GitHub:</strong> <a href="#" target="_blank">View our projects on GitHub</a>
-                    </div>
-                </div>
+            <div style="text-align:center; max-width:600px; margin:0 auto;">
+                <p><strong>Email:</strong> <a href="mailto:brightcodeinc@gmail.com>brightcodeinc@gmail.com</a></p>
+                <p><strong>Phone:</strong> +92 03142757929</p>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2026 Bright Code. All rights reserved. | Building innovative software solutions for businesses worldwide.</p>
+        <p>&copy; 2026 Bright Code. All rights reserved. | Laravel & PHP Web Development Solutions.</p>
     </footer>
 
     <script>
-        // Create floating particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            particlesContainer.appendChild(particle);
-        }
-
-        function handleSubmit(e) {
-            e.preventDefault();
-            alert('Thank you for reaching out! We will get back to you within 24 hours.');
-            e.target.reset();
-        }
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Intersection Observer for animation triggers
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+        function handleSubmit(e){ e.preventDefault(); alert('Thank you! We will contact you within 24 hours.'); e.target.reset(); }
+        document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',function(e){ e.preventDefault(); const t=document.querySelector(this.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); }));
     </script>
 </body>
 </html>
