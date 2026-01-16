@@ -1217,18 +1217,18 @@
                 <p>Ready to transform your idea into a powerful web application? Get in touch today for a free consultation!</p>
             </div>
             
-            <form class="contact-form" onsubmit="handleSubmit(event)">
+            <form class="contact-form" id="contactForm" method="POST">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" required>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" required></textarea>
+                    <textarea id="message" name="message" required></textarea>
                 </div>
                 <button type="submit" class="btn"><span>Send Message</span></button>
             </form>
@@ -1269,15 +1269,42 @@
             particlesContainer.appendChild(particle);
         }
 
-        function handleSubmit(e) {
+        // Handle form submission with PHP
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+            const form = e.target;
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
             
-            // Create success message
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Sending...</span>';
+            
+            try {
+                const response = await fetch('send_mail.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccessMessage(formData.get('name'), formData.get('email'));
+                    form.reset();
+                } else {
+                    showErrorMessage(result.message || 'Failed to send email. Please try again.');
+                }
+            } catch (error) {
+                showErrorMessage('Network error. Please check your connection and try again.');
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Send Message</span>';
+            }
+        });
+        
+        function showSuccessMessage(name, email) {
             const successDiv = document.createElement('div');
             successDiv.style.cssText = `
                 position: fixed;
@@ -1300,7 +1327,35 @@
                 <p style="font-size: 1rem;">We've received your message and will get back to you within 24 hours at ${email}.</p>
             `;
             
-            // Add overlay
+            showMessageModal(successDiv);
+        }
+        
+        function showErrorMessage(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+                color: white;
+                padding: 2rem 3rem;
+                border-radius: 15px;
+                box-shadow: 0 20px 60px rgba(231, 76, 60, 0.6);
+                z-index: 10000;
+                text-align: center;
+                animation: fadeInUp 0.5s ease;
+            `;
+            
+            errorDiv.innerHTML = `
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">❌ Error</h3>
+                <p style="font-size: 1rem;">${message}</p>
+            `;
+            
+            showMessageModal(errorDiv);
+        }
+        
+        function showMessageModal(messageDiv) {
             const overlay = document.createElement('div');
             overlay.style.cssText = `
                 position: fixed;
@@ -1314,30 +1369,22 @@
             `;
             
             document.body.appendChild(overlay);
-            document.body.appendChild(successDiv);
+            document.body.appendChild(messageDiv);
             
-            // Reset form
-            e.target.reset();
-            
-            // Remove message after 5 seconds
             setTimeout(() => {
-                successDiv.style.animation = 'fadeOut 0.5s ease';
-                overlay.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => {
-                    document.body.removeChild(successDiv);
-                    document.body.removeChild(overlay);
-                }, 500);
+                closeModal(messageDiv, overlay);
             }, 5000);
             
-            // Click overlay to close
-            overlay.addEventListener('click', () => {
-                successDiv.style.animation = 'fadeOut 0.5s ease';
-                overlay.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => {
-                    document.body.removeChild(successDiv);
-                    document.body.removeChild(overlay);
-                }, 500);
-            });
+            overlay.addEventListener('click', () => closeModal(messageDiv, overlay));
+        }
+        
+        function closeModal(messageDiv, overlay) {
+            messageDiv.style.animation = 'fadeOut 0.5s ease';
+            overlay.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => {
+                if (document.body.contains(messageDiv)) document.body.removeChild(messageDiv);
+                if (document.body.contains(overlay)) document.body.removeChild(overlay);
+            }, 500);
         }
 
         // Smooth scrolling
